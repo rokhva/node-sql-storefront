@@ -3,14 +3,15 @@ CREATE DATABASE bamazon;
 USE bamazon;
 
 CREATE TABLE products (
-    id NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     product_name VARCHAR(100) NULL,
     department_name VARCHAR(100) NULL,
     price DECIMAL (50) NULL,
     stock_quantity INTEGER (50) NULL,
+    PRIMARY KEY (id)
 );
 
-INSERT INTO authors (product_name, department_name, price, stock_quantity) 
+INSERT INTO products (product_name, department_name, price, stock_quantity) 
 VALUES ('sloth hugs', 'pets', '50', '100'),
        ('sloth kisses', 'pets', '100', '100'),
        ('mugs', 'kitchen', '10', '50'),
@@ -21,6 +22,3 @@ VALUES ('sloth hugs', 'pets', '50', '100'),
        ('ground coffee', 'pantry', '10', '40'),
        ('whole bean coffee', 'pantry', '18', '100'),
        ('pour over filter', 'kitchen', '6', '25');
-
-
-
