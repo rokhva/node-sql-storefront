@@ -45,7 +45,7 @@ function start() {
                     break;
 
                 case "Add to inventory":
-
+                    addInventory();
                     break;
 
                 case "Add new product":
@@ -87,4 +87,32 @@ function lowInventory(){
             start();
         }
     })
+}
+
+
+function addInventory(){
+
+    inquirer
+      .prompt([
+        {
+          type: "number",
+          name: "id",
+          message: "what's the id of the item you want to purchase?"
+        },
+        {
+          type: "number",
+          name: "quantity",
+          message: "How many more would you like to add?"
+        }
+      ])
+      .then(function(val){
+          console.log(val.quantity);
+
+          let queryAdd = `UPDATE products SET stock_quantity = ${val.quantity} WHERE id = ${val.id}`;
+          
+          connection.query(queryAdd, function (err, results) {
+            if (err) return console.log(err);
+            console.table(results);
+        })
+      })
 }
