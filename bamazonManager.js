@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 require("console.table");
 
+//establishes connection to sql
 var connection = mysql.createConnection({
     host: "localhost",
 
@@ -16,13 +17,14 @@ var connection = mysql.createConnection({
     database: "bamazon"
 });
 
+//if the connection works then the start function is called
 connection.connect(function (err) {
     if (err) throw err;
     start();
 });
 
 
-
+//displays the list of tasks the managers can choose to perform
 function start() {
     inquirer
         .prompt([
@@ -60,7 +62,7 @@ function start() {
 }
 
 
-
+//dispalys all the items that are for sale in the console (in table form)
 function forSale() {
     console.log();
 
@@ -71,7 +73,8 @@ function forSale() {
     })
 }
 
-
+//checks database, and dsiplays only the items that have below 5 in value
+//if all are in stock then a message saying "looks like you have enough of everything" is displayed in the console
 function lowInventory(){
     // let lowInventory =5;
     let queryQuant = "SELECT * FROM products WHERE stock_quantity BETWEEN 0 AND 5";
@@ -89,7 +92,7 @@ function lowInventory(){
     })
 }
 
-
+//adds to the current inventory in the database
 function addInventory(){
 
     inquirer
@@ -118,6 +121,7 @@ function addInventory(){
 }
 
 
+//allows the user to add new items into the database
 function addNew(){
     inquirer
       .prompt([
@@ -142,6 +146,28 @@ function addNew(){
           message: "How many would you like to add?"
         }
       ])
+      .then(function(val){
+        
+        console.log(val);
+        
+        let query = connection.query(
+            "INSERT INTO products SET ?",
+            {
+              product_name: val.product,
+              department_name: val.department,
+              price: val.price,
+              stock_quantity: val.quantity
+            },
+            function(err, res) {
+              if (err) throw err;
+            //   console.log(res);
+              console.log(res.affectedRows + " product inserted!\n");
+              // Call updateProduct AFTER the INSERT completes
+            //   updateProduct();
+            }
+          );
 
+          forSale();
+    })
 
 }
