@@ -1,6 +1,6 @@
 # node-sql-storefront
 
-###App Summary
+### App Summary
 There are two experiences within this command line application:
 1. The customer
     The customer has the ability to:
@@ -16,10 +16,10 @@ There are two experiences within this command line application:
     - Purchase items, and add to the current inventory
     - Add new items to the inventory
 
-###Dependancies
+### Dependancies
 >This app depends on the mysql and inquirer npm packages
 
-###What was used to make it?
+### What was used to make it?
     Languages:
     - Javascript
     - Sql
