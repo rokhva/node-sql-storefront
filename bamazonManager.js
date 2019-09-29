@@ -49,7 +49,7 @@ function start() {
                     break;
 
                 case "Add new product":
-
+                    addNew();
                     break;
 
                 default:
@@ -106,13 +106,42 @@ function addInventory(){
         }
       ])
       .then(function(val){
-          console.log(val.quantity);
 
           let queryAdd = `UPDATE products SET stock_quantity = ${val.quantity} WHERE id = ${val.id}`;
           
           connection.query(queryAdd, function (err, results) {
             if (err) return console.log(err);
             console.table(results);
+            // console.log(results.affectedRows + " products updated!\n");
         })
       })
+}
+
+
+function addNew(){
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "product",
+          message: "What's the name of the product you want to add?"
+        },
+        {
+            type: "input",
+            name: "department",
+            message: "What department is it in?"
+        },
+        {
+            type: "number",
+            name: "price",
+            message: "How much is it?"
+        },
+        {
+          type: "number",
+          name: "quantity",
+          message: "How many would you like to add?"
+        }
+      ])
+
+
 }
